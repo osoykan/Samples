@@ -1,8 +1,9 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 using Castle.Facilities.Logging;
 using Castle.MicroKernel.Registration;
-using Castle.Windsor;
 using Castle.Windsor.Installer;
 
 using NLog;
@@ -20,34 +21,32 @@ namespace QuartzCore
     {
         public static void Main(string[] args)
         {
-            var container = new WindsorContainer();
+            InstallCore();
 
-            container.Install(FromAssembly.This())
-                     .AddFacility<LoggingFacility>(facility => facility.UseNLog("NLog.config"))
-                     .Register(
-                         Component.For<IJobFactory, QuartzWindsorFactory>().LifestyleSingleton(),
-                         Component.For<IJobListener, JobListener>().LifestyleSingleton(),
-                         Component.For<ILogger>().UsingFactoryMethod(() => LogManager.GetLogger("Debug")).LifestyleTransient(),
-                         Classes.FromAssemblyInDirectory(new AssemblyFilter(string.Empty))
-                                .IncludeNonPublicTypes()
-                                .BasedOn<IPayflexJob>()
-                                .WithService.Self()
-                                .LifestyleTransient()
-                );
+            var scheduler = GetScheduler();
 
+            InstallModules();
+
+            InstallJobs(scheduler);
+
+            scheduler.Start();
+        }
+
+        private static IScheduler GetScheduler()
+        {
             var scheduler = StdSchedulerFactory.GetDefaultScheduler();
-            scheduler.JobFactory = container.Resolve<IJobFactory>();
-            scheduler.ListenerManager.AddJobListener(container.Resolve<IJobListener>());
 
-            var jobs = (from asm in typeof(IPayflexJob).FindAssemliesInBin()
-                        from type in asm.GetTypes()
-                        where type.IsClass && typeof(IPayflexJob).IsAssignableFrom(type)
-                        select type)
-                .ToList();
+            scheduler.JobFactory = IocManager.Instance.Resolve<IJobFactory>();
+            scheduler.ListenerManager.AddJobListener(IocManager.Instance.Resolve<IJobListener>());
 
-            foreach (var job in jobs)
+            return scheduler;
+        }
+
+        private static void InstallJobs(IScheduler scheduler)
+        {
+            foreach (var job in FindTypesBasedOn<IPayflexJob>())
             {
-                var jobToExecute = container.Resolve(job) as JobBase;
+                var jobToExecute = (JobBase)IocManager.Instance.Resolve(job);
                 if (jobToExecute != null)
                 {
                     jobToExecute.CreateJobDetail();
@@ -57,8 +56,47 @@ namespace QuartzCore
                     scheduler.ScheduleJob(jobToExecute.JobDetail, jobToExecute.Trigger);
                 }
             }
+        }
 
-            scheduler.Start();
+        private static void InstallModules()
+        {
+            foreach (var jobModule in FindTypesBasedOn<JobModuleBase>())
+            {
+                var module = IocManager.Instance.Resolve<JobModuleBase>(jobModule);
+                module.BeforeCreateJob();
+                module.AfterCreateJob();
+                IocManager.Instance.Release(module);
+            }
+        }
+
+        private static void InstallCore()
+        {
+            IocManager.Instance.Container.Install(FromAssembly.This())
+                      .AddFacility<LoggingFacility>(facility => facility.UseNLog("NLog.config"))
+                      .Register(
+                          Component.For<IJobFactory, QuartzWindsorFactory>().LifestyleSingleton(),
+                          Component.For<IJobListener, JobListener>().LifestyleSingleton(),
+                          Component.For<ILogger>().UsingFactoryMethod(() => LogManager.GetLogger("Debug")).LifestyleTransient(),
+                          Classes.FromAssemblyInDirectory(new AssemblyFilter(string.Empty))
+                                 .IncludeNonPublicTypes()
+                                 .BasedOn<IPayflexJob>()
+                                 .WithService.Self()
+                                 .LifestyleTransient(),
+                          Classes.FromAssemblyInDirectory(new AssemblyFilter(string.Empty))
+                                 .IncludeNonPublicTypes()
+                                 .BasedOn<JobModuleBase>()
+                                 .WithService.Self()
+                                 .LifestyleTransient()
+                );
+        }
+
+        public static List<Type> FindTypesBasedOn<T>()
+        {
+            return (from asm in typeof(T).FindAssemliesInBin()
+                    from type in asm.GetTypes()
+                    where type.IsClass && typeof(T).IsAssignableFrom(type)
+                    select type)
+                .ToList();
         }
     }
 }

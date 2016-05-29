@@ -2,13 +2,17 @@
 
 using Quartz;
 
+using QuartzCore.Dependency;
+
 namespace QuartzCore.Quartz
 {
     public abstract class JobBase : IPayflexJob
     {
+        public IocManager IocManager { get; set; }
+
         protected JobBuilder JobBuilder { get; set; }
 
-        public IJobDetail JobDetail { get; set; }
+        public IJobDetail JobDetail {get; private set; }
 
         public ITrigger Trigger { get; set; }
 

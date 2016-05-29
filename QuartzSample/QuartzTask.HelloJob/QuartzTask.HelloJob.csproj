@@ -46,7 +46,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dummy\Dummy.cs" />
     <Compile Include="HelloJob.cs" />
+    <Compile Include="HelloJobModule.cs" />
+    <Compile Include="Dummy\IDummy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

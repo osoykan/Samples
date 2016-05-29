@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Threading;
 
 using NLog;
@@ -7,17 +7,15 @@ using Quartz;
 
 using QuartzCore.Quartz;
 
-namespace QuartzCore.Jobs
+namespace QuartzTask.GoodbyeJob
 {
-    public class HelloJob : JobBase, IJob
+    public class GoodbyeJob : JobBase, IJob
     {
-        private readonly IDummy dummy;
         private readonly ILogger logger;
 
-        public HelloJob(ILogger logger, IDummy dummy)
+        public GoodbyeJob(ILogger logger)
         {
             this.logger = logger;
-            this.dummy = dummy;
         }
 
         public void Execute(IJobExecutionContext context)
@@ -30,7 +28,7 @@ namespace QuartzCore.Jobs
         public override void CreateJobDetail()
         {
             base.CreateJobDetail();
-            JobBuilder.WithDescription("Hello Job");
+            JobBuilder.WithDescription("Good Bye Job");
         }
 
         public override void CreateJobTrigger()
@@ -38,7 +36,7 @@ namespace QuartzCore.Jobs
             Trigger = TriggerBuilder.Create()
                                     .StartNow()
                                     .WithSimpleSchedule(x => x
-                                        .WithIntervalInSeconds(1)
+                                        .WithIntervalInSeconds(5)
                                         .RepeatForever()
                                         .WithMisfireHandlingInstructionFireNow())
                                     .Build();
