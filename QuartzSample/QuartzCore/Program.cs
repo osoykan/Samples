@@ -6,6 +6,8 @@ using Castle.Facilities.Logging;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor.Installer;
 
+using FluentAssemblyScanner;
+
 using NLog;
 
 using Quartz;
@@ -14,6 +16,8 @@ using Quartz.Spi;
 
 using QuartzCore.Dependency;
 using QuartzCore.Quartz;
+
+using AssemblyFilter = Castle.MicroKernel.Registration.AssemblyFilter;
 
 namespace QuartzCore
 {
@@ -60,7 +64,15 @@ namespace QuartzCore
 
         private static void InstallModules()
         {
-            foreach (var jobModule in FindTypesBasedOn<JobModuleBase>())
+            var jobModules = AssemblyScanner
+                .FromAssemblyInDirectory(AssemblyFilterFactory.All())
+                .IncludeNonPublicTypes()
+                .BasedOn<JobModuleBase>()
+                .NonStatic()
+                .UseDefaultfilter()
+                .Scan();
+
+            foreach (var jobModule in jobModules)
             {
                 var module = IocManager.Instance.Resolve<JobModuleBase>(jobModule);
                 module.BeforeCreateJob();
