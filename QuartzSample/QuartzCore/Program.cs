@@ -23,6 +23,15 @@ namespace QuartzCore
 {
     public class Program
     {
+        public static List<Type> FindTypesBasedOn<T>()
+        {
+            return (from asm in typeof(T).FindAssemliesInBin()
+                    from type in asm.GetTypes()
+                    where type.IsClass && typeof(T).IsAssignableFrom(type)
+                    select type)
+                .ToList();
+        }
+
         public static void Main(string[] args)
         {
             InstallCore();
@@ -44,6 +53,27 @@ namespace QuartzCore
             scheduler.ListenerManager.AddJobListener(IocManager.Instance.Resolve<IJobListener>());
 
             return scheduler;
+        }
+
+        private static void InstallCore()
+        {
+            IocManager.Instance.Container.Install(FromAssembly.This())
+                      .AddFacility<LoggingFacility>(facility => facility.UseNLog("NLog.config"))
+                      .Register(
+                          Component.For<IJobFactory, QuartzWindsorFactory>().LifestyleSingleton(),
+                          Component.For<IJobListener, JobListener>().LifestyleSingleton(),
+                          Component.For<ILogger>().UsingFactoryMethod(() => LogManager.GetLogger("Debug")).LifestyleTransient(),
+                          Classes.FromAssemblyInDirectory(new AssemblyFilter(string.Empty))
+                                 .IncludeNonPublicTypes()
+                                 .BasedOn<IPayflexJob>()
+                                 .WithService.Self()
+                                 .LifestyleTransient(),
+                          Classes.FromAssemblyInDirectory(new AssemblyFilter(string.Empty))
+                                 .IncludeNonPublicTypes()
+                                 .BasedOn<JobModuleBase>()
+                                 .WithService.Self()
+                                 .LifestyleTransient()
+                );
         }
 
         private static void InstallJobs(IScheduler scheduler)
@@ -68,8 +98,10 @@ namespace QuartzCore
                 .FromAssemblyInDirectory(AssemblyFilterFactory.All())
                 .IncludeNonPublicTypes()
                 .BasedOn<JobModuleBase>()
-                .NonStatic()
-                .UseDefaultfilter()
+                .Filter()
+                .And.Classes()
+                .And.NonStatic()
+                .Then()
                 .Scan();
 
             foreach (var jobModule in jobModules)
@@ -79,36 +111,6 @@ namespace QuartzCore
                 module.AfterCreateJob();
                 IocManager.Instance.Release(module);
             }
-        }
-
-        private static void InstallCore()
-        {
-            IocManager.Instance.Container.Install(FromAssembly.This())
-                      .AddFacility<LoggingFacility>(facility => facility.UseNLog("NLog.config"))
-                      .Register(
-                          Component.For<IJobFactory, QuartzWindsorFactory>().LifestyleSingleton(),
-                          Component.For<IJobListener, JobListener>().LifestyleSingleton(),
-                          Component.For<ILogger>().UsingFactoryMethod(() => LogManager.GetLogger("Debug")).LifestyleTransient(),
-                          Classes.FromAssemblyInDirectory(new AssemblyFilter(string.Empty))
-                                 .IncludeNonPublicTypes()
-                                 .BasedOn<IPayflexJob>()
-                                 .WithService.Self()
-                                 .LifestyleTransient(),
-                          Classes.FromAssemblyInDirectory(new AssemblyFilter(string.Empty))
-                                 .IncludeNonPublicTypes()
-                                 .BasedOn<JobModuleBase>()
-                                 .WithService.Self()
-                                 .LifestyleTransient()
-                );
-        }
-
-        public static List<Type> FindTypesBasedOn<T>()
-        {
-            return (from asm in typeof(T).FindAssemliesInBin()
-                    from type in asm.GetTypes()
-                    where type.IsClass && typeof(T).IsAssignableFrom(type)
-                    select type)
-                .ToList();
         }
     }
 }
