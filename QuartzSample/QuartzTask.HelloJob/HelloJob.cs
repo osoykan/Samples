@@ -7,7 +7,9 @@ using Quartz;
 
 using QuartzCore.Quartz;
 
-namespace QuartzCore.Jobs
+using QuartzTask.HelloJob.Dummy;
+
+namespace QuartzTask.HelloJob
 {
     public class HelloJob : JobBase, IJob
     {

@@ -1,12 +1,14 @@
 ﻿using QuartzCore.Dependency;
 
-namespace QuartzCore.Jobs
+using QuartzTask.HelloJob.Dummy;
+
+namespace QuartzTask.HelloJob
 {
     public class HelloJobModule : JobModuleBase
     {
         public override void BeforeCreateJob()
         {
-            IocManager.Register<IDummy, Dummy>(LifeStyle.Transient);
+            IocManager.Register<IDummy, Dummy.Dummy>(LifeStyle.Transient);
         }
     }
 }

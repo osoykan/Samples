@@ -6,10 +6,10 @@ using Abp.Quartz.Quartz;
 
 using Quartz;
 
-namespace AbpQuartzTask.HelloJob
+namespace AbpQuartzTask.GoodbyeJob
 {
     [DependsOn(typeof(AbpQuartzModule))]
-    public class HelloJobModule : AbpModule
+    public class GoodbyeJobModule : AbpModule
     {
         public override void Initialize()
         {
@@ -20,11 +20,11 @@ namespace AbpQuartzTask.HelloJob
         {
             using (var quartzJobManager = IocManager.ResolveAsDisposable<IQuartzScheduleJobManager>())
             {
-                quartzJobManager.Object.ScheduleAsync<HelloJob>(
+                quartzJobManager.Object.ScheduleAsync<GoodbyeJob>(
                     job =>
                     {
-                        job.WithIdentity("Hello", "Group1")
-                           .WithDescription("HelloJob");
+                        job.WithIdentity("Goodbye", "Group1")
+                           .WithDescription("GoodbyeJob");
                     },
                     trigger =>
                     {

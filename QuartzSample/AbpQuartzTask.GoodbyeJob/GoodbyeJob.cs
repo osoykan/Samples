@@ -6,13 +6,13 @@ using Castle.Core.Logging;
 
 using Quartz;
 
-namespace AbpQuartzTask.HelloJob
+namespace AbpQuartzTask.GoodbyeJob
 {
-    public class HelloJob : IJob, ITransientDependency
+    public class GoodbyeJob : IJob, ITransientDependency
     {
         public ILogger Logger { get; set; }
 
-        public HelloJob()
+        public GoodbyeJob()
         {
             Logger = NullLogger.Instance;
         }

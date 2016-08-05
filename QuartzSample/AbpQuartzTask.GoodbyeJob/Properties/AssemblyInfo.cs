@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Abp.Quartz.ConsoleApp")]
+[assembly: AssemblyTitle("AbpQuartzTask.GoodbyeJob")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Abp.Quartz.ConsoleApp")]
+[assembly: AssemblyProduct("AbpQuartzTask.GoodbyeJob")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("59a3b433-b4eb-4c31-b448-4ffb7010779d")]
+[assembly: Guid("65e48e10-d74b-4d27-b7a5-ea91bf3691a8")]
 
 // Version information for an assembly consists of the following four values:
 //

@@ -8,21 +8,21 @@ namespace Abp.Quartz.Quartz
 {
     public class AbpQuartzWindsorFactory : IJobFactory
     {
-        private readonly IIocResolver iocResolver;
+        private readonly IIocManager iocManager;
 
-        public AbpQuartzWindsorFactory(IIocResolver iocResolver)
+        public AbpQuartzWindsorFactory(IIocManager iocManager)
         {
-            this.iocResolver = iocResolver;
+            this.iocManager = iocManager;
         }
 
         public IJob NewJob(TriggerFiredBundle bundle, IScheduler scheduler)
         {
-            return iocResolver.Resolve(bundle.JobDetail.JobType).As<IJob>();
+            return iocManager.Resolve(bundle.JobDetail.JobType).As<IJob>();
         }
 
         public void ReturnJob(IJob job)
         {
-            iocResolver.Release(job);
+            iocManager.Release(job);
         }
     }
 }

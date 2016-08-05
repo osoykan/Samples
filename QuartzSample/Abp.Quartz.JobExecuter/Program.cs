@@ -1,4 +1,4 @@
-﻿namespace Abp.Quartz.JobExecuter
+﻿namespace Abp.Quartz.ConsoleApp
 {
     internal class Program
     {

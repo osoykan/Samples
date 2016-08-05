@@ -37,7 +37,6 @@ namespace Abp.Quartz.Quartz
         public override void PreInitialize()
         {
             IocManager.Register<IAbpQuartzConfiguration, AbpQuartzConfiguration>();
-            IocManager.Register<IQuartzScheduleJobManager, QuartzScheduleJobManager>();
         }
     }
 }
