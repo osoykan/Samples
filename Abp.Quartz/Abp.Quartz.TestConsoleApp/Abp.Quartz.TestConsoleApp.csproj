@@ -92,6 +92,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Abp.Quartz\Abp.Quartz.csproj">
+      <Project>{98995EF6-79A1-43BF-9D69-4756607C9C32}</Project>
+      <Name>Abp.Quartz</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AbpQuartzTask.GoodbyeJob\AbpQuartzTask.GoodbyeJob.csproj">
       <Project>{65E48E10-D74B-4D27-B7A5-EA91BF3691A8}</Project>
       <Name>AbpQuartzTask.GoodbyeJob</Name>

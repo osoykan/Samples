@@ -6,24 +6,19 @@ using Abp.Dependency;
 using Abp.Quartz.Quartz;
 using Abp.Quartz.Quartz.Configuration;
 
-using Quartz;
-using Quartz.Spi;
-
 namespace Abp.Quartz.Configuration
 {
     public static class AbpQuartzConfigurationExtensions
     {
         public static IAbpQuartzConfiguration AbpQuartz(this IModuleConfigurations configurations)
         {
-            configurations.AbpConfiguration.IocManager.Register<IAbpQuartzConfiguration, AbpQuartzConfiguration>();
             return configurations.AbpConfiguration.Get<IAbpQuartzConfiguration>();
         }
 
-        public static void UseQuartz(this IBackgroundJobConfiguration backgroundJobConfiguration, Action<IAbpQuartzConfiguration> configureAction)
+        public static void UseQuartz(this IBackgroundJobConfiguration backgroundJobConfiguration, Action<IAbpQuartzConfiguration> configureAction = null)
         {
-            backgroundJobConfiguration.AbpConfiguration.IocManager.RegisterIfNot<IJobFactory, AbpQuartzWindsorFactory>();
-            backgroundJobConfiguration.AbpConfiguration.IocManager.RegisterIfNot<IJobListener, AbpQuartzJobListener>();
-            configureAction(backgroundJobConfiguration.AbpConfiguration.Modules.AbpQuartz());
+            backgroundJobConfiguration.AbpConfiguration.IocManager.RegisterIfNot<IQuartzScheduleJobManager, QuartzScheduleJobManager>();
+            configureAction?.Invoke(backgroundJobConfiguration.AbpConfiguration.Modules.AbpQuartz());
         }
     }
 }

@@ -1,12 +1,11 @@
 ﻿using System.Reflection;
 
+using Abp.Dependency;
 using Abp.Modules;
 using Abp.Quartz.Configuration;
-using Abp.Threading.BackgroundWorkers;
+using Abp.Quartz.Quartz.Configuration;
 
 using Quartz;
-using Quartz.Impl;
-using Quartz.Spi;
 
 namespace Abp.Quartz.Quartz
 {
@@ -16,22 +15,22 @@ namespace Abp.Quartz.Quartz
         public override void Initialize()
         {
             IocManager.RegisterAssemblyByConvention(Assembly.GetExecutingAssembly());
+        }
 
-            Configuration.BackgroundJobs.UseQuartz(configuration =>
-            {
-                configuration.Scheduler = StdSchedulerFactory.GetDefaultScheduler();
-                configuration.Scheduler.JobFactory = IocManager.Resolve<IJobFactory>();
-                configuration.Scheduler.ListenerManager.AddJobListener(IocManager.Resolve<IJobListener>());
-            });
+        public override void PreInitialize()
+        {
+            IocManager.Register<IAbpQuartzConfiguration, AbpQuartzConfiguration>();
+            IocManager.RegisterIfNot<IJobListener, AbpQuartzJobListener>();
 
-            IocManager.Register<IQuartzScheduleJobManager, QuartzScheduleJobManager>();
+            Configuration.Modules
+                         .AbpQuartz()
+                         .Scheduler
+                         .JobFactory = new AbpQuartzWindsorFactory(IocManager);
 
-            if (Configuration.BackgroundJobs.IsJobExecutionEnabled)
-            {
-                var workerManager = IocManager.Resolve<IBackgroundWorkerManager>();
-                workerManager.Start();
-                workerManager.Add(IocManager.Resolve<IQuartzScheduleJobManager>());
-            }
+            Configuration.Modules
+                         .AbpQuartz()
+                         .Scheduler
+                         .ListenerManager.AddJobListener(IocManager.Resolve<IJobListener>());
         }
     }
 }

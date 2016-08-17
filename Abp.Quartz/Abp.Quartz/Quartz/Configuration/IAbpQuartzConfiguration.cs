@@ -4,6 +4,6 @@ namespace Abp.Quartz.Quartz.Configuration
 {
     public interface IAbpQuartzConfiguration
     {
-        IScheduler Scheduler { get; set; }
+        IScheduler Scheduler { get;}
     }
 }
