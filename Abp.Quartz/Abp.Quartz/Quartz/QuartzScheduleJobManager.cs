@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 
 using Abp.BackgroundJobs;
+using Abp.Quartz.Configuration;
 using Abp.Quartz.Quartz.Configuration;
 using Abp.Threading.BackgroundWorkers;
 
@@ -25,9 +26,8 @@ namespace Abp.Quartz.Quartz
         {
             base.Start();
 
-            if (quartzConfiguration.Scheduler == null && backgroundJobConfiguration.IsJobExecutionEnabled)
+            if (backgroundJobConfiguration.IsJobExecutionEnabled)
             {
-                quartzConfiguration.Scheduler = StdSchedulerFactory.GetDefaultScheduler();
                 quartzConfiguration.Scheduler.Start();
             }
         }

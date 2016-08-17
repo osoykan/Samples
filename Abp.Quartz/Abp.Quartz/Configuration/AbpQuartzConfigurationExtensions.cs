@@ -15,6 +15,7 @@ namespace Abp.Quartz.Configuration
     {
         public static IAbpQuartzConfiguration AbpQuartz(this IModuleConfigurations configurations)
         {
+            configurations.AbpConfiguration.IocManager.Register<IAbpQuartzConfiguration, AbpQuartzConfiguration>();
             return configurations.AbpConfiguration.Get<IAbpQuartzConfiguration>();
         }
 
