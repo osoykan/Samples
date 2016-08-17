@@ -4,7 +4,7 @@
     {
         private static void Main(string[] args)
         {
-            var bootstrapper = AbpBootstrapper.Create<AbpQuartzJobExecuterModule>();
+            var bootstrapper = AbpBootstrapper.Create<AbpQuartzConsoleAppModule>();
             bootstrapper.Initialize();
         }
     }

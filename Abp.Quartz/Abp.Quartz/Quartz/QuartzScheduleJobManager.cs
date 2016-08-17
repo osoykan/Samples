@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 
 using Abp.BackgroundJobs;
-using Abp.Quartz.Configuration;
 using Abp.Quartz.Quartz.Configuration;
 using Abp.Threading.BackgroundWorkers;
 
