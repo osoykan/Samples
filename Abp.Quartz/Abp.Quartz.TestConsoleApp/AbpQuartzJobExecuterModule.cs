@@ -10,7 +10,8 @@ using AbpQuartzTask.HelloJob;
 
 namespace Abp.Quartz.TestConsoleApp
 {
-    [DependsOn(typeof(AbpQuartzModule),
+    [DependsOn(
+        typeof(AbpQuartzModule),
         typeof(HelloJobModule),
         typeof(GoodbyeJobModule))]
     public class AbpQuartzJobExecuterModule : AbpModule
@@ -19,7 +20,7 @@ namespace Abp.Quartz.TestConsoleApp
         {
             IocManager.RegisterAssemblyByConvention(Assembly.GetExecutingAssembly());
 
-            Configuration.BackgroundJobs.UseQuartz();
+            //Configuration.BackgroundJobs.UseQuartz();
         }
 
         public override void PostInitialize()
