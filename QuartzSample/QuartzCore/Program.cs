@@ -58,22 +58,22 @@ namespace QuartzCore
         private static void InstallCore()
         {
             IocManager.Instance.Container.Install(FromAssembly.This())
-                      .AddFacility<LoggingFacility>(facility => facility.UseNLog("NLog.config"))
-                      .Register(
-                          Component.For<IJobFactory, QuartzWindsorFactory>().LifestyleSingleton(),
-                          Component.For<IJobListener, JobListener>().LifestyleSingleton(),
-                          Component.For<ILogger>().UsingFactoryMethod(() => LogManager.GetLogger("Debug")).LifestyleTransient(),
-                          Classes.FromAssemblyInDirectory(new AssemblyFilter(string.Empty))
-                                 .IncludeNonPublicTypes()
-                                 .BasedOn<IPayflexJob>()
-                                 .WithService.Self()
-                                 .LifestyleTransient(),
-                          Classes.FromAssemblyInDirectory(new AssemblyFilter(string.Empty))
-                                 .IncludeNonPublicTypes()
-                                 .BasedOn<JobModuleBase>()
-                                 .WithService.Self()
-                                 .LifestyleTransient()
-                );
+                       .AddFacility<LoggingFacility>(facility => facility.UseNLog("NLog.config"))
+                       .Register(
+                           Component.For<IJobFactory, QuartzWindsorFactory>().LifestyleSingleton(),
+                           Component.For<IJobListener, JobListener>().LifestyleSingleton(),
+                           Component.For<ILogger>().UsingFactoryMethod(() => LogManager.GetLogger("Debug")).LifestyleTransient(),
+                           Classes.FromAssemblyInDirectory(new AssemblyFilter(string.Empty))
+                                   .IncludeNonPublicTypes()
+                                   .BasedOn<IPayflexJob>()
+                                   .WithService.Self()
+                                   .LifestyleTransient(),
+                           Classes.FromAssemblyInDirectory(new AssemblyFilter(string.Empty))
+                                   .IncludeNonPublicTypes()
+                                   .BasedOn<JobModuleBase>()
+                                   .WithService.Self()
+                                   .LifestyleTransient()
+                       );
         }
 
         private static void InstallJobs(IScheduler scheduler)
@@ -94,15 +94,12 @@ namespace QuartzCore
 
         private static void InstallModules()
         {
-            var jobModules = AssemblyScanner
+            var jobModules = FluentAssemblyScanner.FluentAssemblyScanner
                 .FromAssemblyInDirectory(AssemblyFilterFactory.All())
                 .IncludeNonPublicTypes()
                 .BasedOn<JobModuleBase>()
                 .Filter()
-                .And.Classes()
-                .And.NonStatic()
-                .Then()
-                .Scan();
+                .Classes().NonStatic().Scan();
 
             foreach (var jobModule in jobModules)
             {

@@ -21,19 +21,19 @@ namespace AbpQuartzTask.GoodbyeJob
             using (var quartzJobManager = IocManager.ResolveAsDisposable<IQuartzScheduleJobManager>())
             {
                 quartzJobManager.Object.ScheduleAsync<GoodbyeJob>(
-                    job =>
-                    {
-                        job.WithIdentity("Goodbye", "Group1")
-                           .WithDescription("GoodbyeJob");
-                    },
-                    trigger =>
-                    {
-                        trigger.StartNow()
-                               .WithSimpleSchedule(schedule =>
-                                   schedule.RepeatForever()
-                                           .WithIntervalInSeconds(3)
-                                           .Build());
-                    });
+                                     job =>
+                                     {
+                                         job.WithIdentity("Goodbye", "Group1")
+                                             .WithDescription("GoodbyeJob");
+                                     },
+                                     trigger =>
+                                     {
+                                         trigger.StartNow()
+                                                 .WithSimpleSchedule(schedule =>
+                                                     schedule.RepeatForever()
+                                                              .WithIntervalInSeconds(3)
+                                                              .Build());
+                                     });
             }
         }
     }

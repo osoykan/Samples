@@ -1,6 +1,8 @@
 using System;
 using System.Threading;
 
+using Castle.Core.Logging;
+
 using NLog;
 
 using Quartz;
@@ -8,6 +10,8 @@ using Quartz;
 using QuartzCore.Quartz;
 
 using QuartzTask.HelloJob.Dummy;
+
+using ILogger = Castle.Core.Logging.ILogger;
 
 namespace QuartzTask.HelloJob
 {
