@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DependencyInjectionCourse", "DependencyInjectionCourse\DependencyInjectionCourse.csproj", "{9DB19A34-0D4C-4F7A-9F4D-2E54C15E1634}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DependencyInjectionCourse.Tests", "DependencyInjectionCourse.Tests\DependencyInjectionCourse.Tests.csproj", "{11C33D6E-DC39-41EB-A6FF-E4CA754EB15A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9DB19A34-0D4C-4F7A-9F4D-2E54C15E1634}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DB19A34-0D4C-4F7A-9F4D-2E54C15E1634}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DB19A34-0D4C-4F7A-9F4D-2E54C15E1634}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DB19A34-0D4C-4F7A-9F4D-2E54C15E1634}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11C33D6E-DC39-41EB-A6FF-E4CA754EB15A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11C33D6E-DC39-41EB-A6FF-E4CA754EB15A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11C33D6E-DC39-41EB-A6FF-E4CA754EB15A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11C33D6E-DC39-41EB-A6FF-E4CA754EB15A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
