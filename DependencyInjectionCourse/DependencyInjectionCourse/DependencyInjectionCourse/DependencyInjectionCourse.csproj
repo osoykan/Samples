@@ -49,6 +49,10 @@
       <HintPath>..\packages\JetBrains.Annotations.10.2.1\lib\net\JetBrains.Annotations.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -59,6 +63,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interceptors\AuditInterceptor.cs" />
     <Compile Include="Basket.cs" />
     <Compile Include="Cache\CacheManager.cs" />
     <Compile Include="Cache\CacheStarter.cs" />
@@ -68,7 +73,7 @@
     <Compile Include="Logger\ILogger.cs" />
     <Compile Include="Logger\ConsoleLogger.cs" />
     <Compile Include="Logger\NullLogger.cs" />
-    <Compile Include="Order\Interceptors\SecurityInterceptor.cs" />
+    <Compile Include="Interceptors\SecurityInterceptor.cs" />
     <Compile Include="Order\IOrderService.cs" />
     <Compile Include="Order\OrderResult.cs" />
     <Compile Include="Order\OrderService.cs" />

@@ -1,4 +1,4 @@
-﻿namespace DependencyInjectionCourse
+﻿namespace DependencyInjectionCourse.Cache
 {
     public interface ICacheManager
     {

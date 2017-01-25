@@ -1,6 +1,6 @@
 ﻿using JetBrains.Annotations;
 
-namespace DependencyInjectionCourse
+namespace DependencyInjectionCourse.Order
 {
     public interface IOrderService
     {

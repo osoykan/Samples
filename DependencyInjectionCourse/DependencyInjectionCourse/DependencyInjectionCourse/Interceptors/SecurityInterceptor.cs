@@ -4,6 +4,7 @@ using System.Threading;
 using Castle.DynamicProxy;
 
 using DependencyInjectionCourse.Logger;
+using DependencyInjectionCourse.Order;
 
 namespace DependencyInjectionCourse.Interceptors
 {

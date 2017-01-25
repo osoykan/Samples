@@ -1,6 +1,8 @@
-﻿using JetBrains.Annotations;
+﻿using DependencyInjectionCourse.Cache;
 
-namespace DependencyInjectionCourse
+using JetBrains.Annotations;
+
+namespace DependencyInjectionCourse.Order
 {
     public class OrderService : IOrderService
     {

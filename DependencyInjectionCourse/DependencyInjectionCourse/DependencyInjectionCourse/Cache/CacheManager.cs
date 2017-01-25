@@ -2,7 +2,7 @@
 
 using JetBrains.Annotations;
 
-namespace DependencyInjectionCourse
+namespace DependencyInjectionCourse.Cache
 {
     public class CacheManager : ICacheManager
     {

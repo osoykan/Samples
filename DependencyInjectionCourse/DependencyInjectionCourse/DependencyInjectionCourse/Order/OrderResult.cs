@@ -1,4 +1,4 @@
-﻿namespace DependencyInjectionCourse
+﻿namespace DependencyInjectionCourse.Order
 {
     public class OrderResult : ResultBase
     {

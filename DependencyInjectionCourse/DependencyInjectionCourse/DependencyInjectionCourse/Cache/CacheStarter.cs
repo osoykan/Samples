@@ -1,12 +1,12 @@
 ﻿using Autofac;
 
-namespace DependencyInjectionCourse
+namespace DependencyInjectionCourse.Cache
 {
     public class CacheStarter : IStartable
     {
-        private readonly ICacheManager _cacheManager;
+        private readonly CacheManager _cacheManager;
 
-        public CacheStarter(ICacheManager cacheManager)
+        public CacheStarter(CacheManager cacheManager)
         {
             _cacheManager = cacheManager;
         }
