@@ -1,12 +1,14 @@
 ﻿using Autofac;
 
+using JetBrains.Annotations;
+
 namespace DependencyInjectionCourse.Cache
 {
     public class CacheStarter : IStartable
     {
         private readonly CacheManager _cacheManager;
 
-        public CacheStarter(CacheManager cacheManager)
+        public CacheStarter([NotNull] CacheManager cacheManager)
         {
             _cacheManager = cacheManager;
         }

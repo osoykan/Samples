@@ -9,6 +9,7 @@ using Autofac.Features.ResolveAnything;
 using Castle.DynamicProxy;
 
 using DependencyInjectionCourse.Cache;
+using DependencyInjectionCourse.ExternalDependencies;
 using DependencyInjectionCourse.Interceptors;
 using DependencyInjectionCourse.Logger;
 using DependencyInjectionCourse.Order;
@@ -39,10 +40,13 @@ namespace DependencyInjectionCourse
             builder.RegisterType<SecurityInterceptor>();
             builder.RegisterType<AuditInterceptor>();
 
+            builder.RegisterType<Dependency1>().As<IDependency1>();
+            builder.RegisterType<Dependency2>().As<IDependency2>();
+            builder.RegisterType<Dependency3>().As<IDependency3>();
+
             IContainer container = builder.Build();
 
-            // COMPOSITION ROOT !
-
+          
             var claims = Thread.CurrentPrincipal as ClaimsPrincipal;
             claims.AddIdentity(new ClaimsIdentity(new Claim[] { new Claim(ClaimTypes.Role, "User") }));
 

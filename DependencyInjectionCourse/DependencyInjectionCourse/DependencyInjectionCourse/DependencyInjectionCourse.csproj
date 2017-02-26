@@ -63,6 +63,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExternalDependencies\Dependency1.cs" />
+    <Compile Include="ExternalDependencies\Dependency2.cs" />
+    <Compile Include="ExternalDependencies\Dependency3.cs" />
     <Compile Include="Interceptors\AuditInterceptor.cs" />
     <Compile Include="Basket.cs" />
     <Compile Include="Cache\CacheManager.cs" />

@@ -8,7 +8,7 @@ namespace DependencyInjectionCourse.Cache
     {
         private static readonly ConcurrentDictionary<string, object> _cache = new ConcurrentDictionary<string, object>();
 
-        public void Set([NotNull] string key, [NotNull] object value)
+        public void Set(string key, object value)
         {
             Check.NotNull(key, nameof(key));
             Check.NotNull(value, nameof(value));
