@@ -41,6 +41,10 @@
       <HintPath>..\packages\AutofacContrib.NSubstitute.4.0.1\lib\NET45\AutofacContrib.NSubstitute.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Chill, Version=2.4.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Chill.2.4.3\lib\net45\Chill.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="FluentAssertions, Version=4.19.0.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
       <HintPath>..\packages\FluentAssertions.4.19.0\lib\net45\FluentAssertions.dll</HintPath>
       <Private>True</Private>
@@ -94,6 +98,7 @@
     <Compile Include="Conventions\AutoSubstituteAttribute.cs" />
     <Compile Include="Conventions\AutoNSubstitutingRegistrationSource.cs" />
     <Compile Include="OrderService_Tests_4_With_DependencyInection_And_AutoSubstitutingContainer.cs" />
+    <Compile Include="OrderService_Tests_6_With_Chill.cs" />
     <Compile Include="OrderService_Tests_5_With_DependencyInection_And_AutoSubstitutingContainer_SecondApproach.cs" />
     <Compile Include="OrderService_Tests_2_With_DependencyInjection.cs" />
     <Compile Include="OrderService_Tests_1.cs" />
