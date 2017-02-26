@@ -20,7 +20,7 @@ namespace DependencyInjectionCourse.Tests
     public class OrderService_Tests_3_With_DependencyInjection_And_AutoFixture : TestBaseWithLocalIoc
     {
         [Theory]
-        [AutoSubstitute]
+        [AutoDataSubstitute]
         public void with_pure_dependency_injection_autofixture(
             IDependency1 fakeDependency1,
             IDependency2 fakeDependency2,

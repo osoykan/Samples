@@ -4,9 +4,9 @@ using Ploeh.AutoFixture.Xunit2;
 
 namespace DependencyInjectionCourse.Tests.Conventions
 {
-    public class AutoSubstituteAttribute : AutoDataAttribute
+    public class AutoDataSubstituteAttribute : AutoDataAttribute
     {
-        public AutoSubstituteAttribute()
+        public AutoDataSubstituteAttribute()
             : base(new Fixture().Customize(new AutoConfiguredNSubstituteCustomization()))
         {
         }
