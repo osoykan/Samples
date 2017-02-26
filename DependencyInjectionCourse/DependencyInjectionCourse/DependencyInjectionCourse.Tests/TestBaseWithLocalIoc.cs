@@ -19,5 +19,10 @@ namespace DependencyInjectionCourse.Tests
             builderAction(Builder);
             Resolver = Builder.Build();
         }
+
+        protected T Use<T>()
+        {
+            return Resolver.Resolve<T>();
+        }
     }
 }

@@ -29,5 +29,10 @@ namespace DependencyInjectionCourse.Tests
         {
             return Resolver.Resolve<T>();
         }
+
+        protected T Use<T>()
+        {
+            return Resolver.Resolve<T>();
+        }
     }
 }

@@ -40,7 +40,7 @@ namespace DependencyInjectionCourse.Tests
                 builder.RegisterType<OrderService>().As<IOrderService>();
             });
 
-            var sut = Resolver.Resolve<IOrderService>();
+            var sut = Use<IOrderService>();
 
             //-----------------------------------------------------------------------------------------------------------
             // Act
