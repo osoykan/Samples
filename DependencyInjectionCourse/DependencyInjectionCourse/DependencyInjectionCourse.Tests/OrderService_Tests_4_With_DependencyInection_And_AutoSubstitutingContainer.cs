@@ -13,28 +13,21 @@ using Xunit;
 
 namespace DependencyInjectionCourse.Tests
 {
-    public class OrderService_Tests_With_DependencyInjection_And_AutoFixture : TestBaseWithLocalIoc
+    /// <summary>
+    ///     Auto-Mocking container aspect <see cref="AutoNSubstitutingRegistrationSource" />
+    /// </summary>
+    /// <seealso cref="DependencyInjectionCourse.Tests.TestBaseWithAutoSubstitutingIoc" />
+    public class OrderService_Tests_With_DependencyInection_And_AutoSubstitutingContainer : TestBaseWithAutoSubstitutingIoc
     {
-        [Theory]
-        [AutoSubstitute]
-        public void with_pure_dependency_injection_autofixture(
-            IDependency1 fakeDependency1,
-            IDependency2 fakeDependency2,
-            ICacheManager fakeCacheManager
-        )
+        [Fact]
+        public void with_dependency_injection_and_automocking_container()
         {
             //-----------------------------------------------------------------------------------------------------------
             // Arrange
             //-----------------------------------------------------------------------------------------------------------
-            Building(builder =>
-            {
-                fakeCacheManager.Get("1").Returns(new Basket(1, 50));
+            Building(builder => { builder.RegisterType<OrderService>().As<IOrderService>(); });
 
-                builder.Register(context => fakeDependency1);
-                builder.Register(context => fakeDependency2);
-                builder.Register(context => fakeCacheManager);
-                builder.RegisterType<OrderService>().As<IOrderService>();
-            }).Ok();
+            AFake<ICacheManager>().Get("1").Returns(new Basket(1, 50));
 
             var sut = Resolver.Resolve<IOrderService>();
 
@@ -48,6 +41,7 @@ namespace DependencyInjectionCourse.Tests
             //-----------------------------------------------------------------------------------------------------------
             result.BasketId.Should().Be(1);
             result.Total.Should().Be(50);
+            AFake<IDependency1>().Received().Salute();
         }
     }
 }

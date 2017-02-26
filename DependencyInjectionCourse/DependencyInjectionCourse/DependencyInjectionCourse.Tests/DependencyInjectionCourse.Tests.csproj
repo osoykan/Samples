@@ -93,11 +93,13 @@
   <ItemGroup>
     <Compile Include="Conventions\AutoSubstituteAttribute.cs" />
     <Compile Include="Conventions\AutoNSubstitutingRegistrationSource.cs" />
-    <Compile Include="OrderService_Tests_With_DependencyInection_And_AutoSubstitutingContainer.cs" />
-    <Compile Include="OrderService_Tests_With_DependencyInjection.cs" />
-    <Compile Include="OrderService_Tests.cs" />
-    <Compile Include="OrderService_Tests_With_DependencyInjection_And_AutoFixture.cs" />
+    <Compile Include="OrderService_Tests_4_With_DependencyInection_And_AutoSubstitutingContainer.cs" />
+    <Compile Include="OrderService_Tests_5_With_DependencyInection_And_AutoSubstitutingContainer_SecondApproach.cs" />
+    <Compile Include="OrderService_Tests_2_With_DependencyInjection.cs" />
+    <Compile Include="OrderService_Tests_1.cs" />
+    <Compile Include="OrderService_Tests_3_With_DependencyInjection_And_AutoFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestBaseWithAutoSubstituteIoc.cs" />
     <Compile Include="TestBaseWithAutoSubstitutingIoc.cs" />
     <Compile Include="TestBaseWithLocalIoc.cs" />
   </ItemGroup>

@@ -1,6 +1,4 @@
-﻿using Autofac;
-
-using DependencyInjectionCourse.Cache;
+﻿using DependencyInjectionCourse.Cache;
 using DependencyInjectionCourse.ExternalDependencies;
 using DependencyInjectionCourse.Order;
 
@@ -12,19 +10,25 @@ using Xunit;
 
 namespace DependencyInjectionCourse.Tests
 {
-    public class OrderService_Tests_With_DependencyInection_And_AutoSubstitutingContainer : TestBaseWithAutoSubstitutingIoc
+    /// <summary>
+    ///     Simple and pure way to write unit tests.
+    /// </summary>
+    public class OrderService_Tests_1
     {
         [Fact]
-        public void with_dependency_injection_and_automocking_container()
+        public void without_dependency_injection()
         {
             //-----------------------------------------------------------------------------------------------------------
             // Arrange
             //-----------------------------------------------------------------------------------------------------------
-            Building(builder => { builder.RegisterType<OrderService>().As<IOrderService>(); });
+            var fakeCacheManager = Substitute.For<ICacheManager>();
+            var fakeDependency1 = Substitute.For<IDependency1>();
+            var fakeDependency2 = Substitute.For<IDependency2>();
+            fakeCacheManager.Get("1").Returns(new Basket(1, 50));
 
-            AFake<ICacheManager>().Get("1").Returns(new Basket(1, 50));
-
-            var sut = Resolver.Resolve<IOrderService>();
+            // Dependency1'in içindeki Logger'a test yazarken ihtiyaç duyulduğu anda tekrar bi New'leme yapılması gerek!
+            // Dependency sayıları arttıkça New sayısı veya object passing artar, okunurluk azalır.
+            var sut = new OrderService(fakeCacheManager, fakeDependency1, fakeDependency2);
 
             //-----------------------------------------------------------------------------------------------------------
             // Act
@@ -36,7 +40,6 @@ namespace DependencyInjectionCourse.Tests
             //-----------------------------------------------------------------------------------------------------------
             result.BasketId.Should().Be(1);
             result.Total.Should().Be(50);
-            AFake<IDependency1>().Received().Salute();
         }
     }
 }

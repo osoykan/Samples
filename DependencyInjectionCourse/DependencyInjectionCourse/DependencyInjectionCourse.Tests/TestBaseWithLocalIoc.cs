@@ -14,16 +14,10 @@ namespace DependencyInjectionCourse.Tests
             Builder = new ContainerBuilder();
         }
 
-        protected TestBaseWithLocalIoc Building(Action<ContainerBuilder> builderAction)
+        protected void Building(Action<ContainerBuilder> builderAction)
         {
             builderAction(Builder);
-            return this;
-        }
-
-        public IContainer Ok()
-        {
             Resolver = Builder.Build();
-            return Resolver;
         }
     }
 }

@@ -1,9 +1,11 @@
-﻿namespace DependencyInjectionCourse.Cache
+﻿using JetBrains.Annotations;
+
+namespace DependencyInjectionCourse.Cache
 {
     public interface ICacheManager
     {
-        void Set(string key, object value);
+        void Set([NotNull] string key, [NotNull] object value);
 
-        object Get(string key);
+        object Get([NotNull] string key);
     }
 }

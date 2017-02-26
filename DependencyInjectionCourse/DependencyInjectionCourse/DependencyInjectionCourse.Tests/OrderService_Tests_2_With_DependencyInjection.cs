@@ -12,7 +12,12 @@ using Xunit;
 
 namespace DependencyInjectionCourse.Tests
 {
-    public class OrderService_Tests_With_DependencyInjection : TestBaseWithLocalIoc
+    /// <summary>
+    ///     Uses manual mocking and pure DI container, Attention! it is doing arrange inside Build Scope
+    ///     for sake of readability.
+    /// </summary>
+    /// <seealso cref="DependencyInjectionCourse.Tests.TestBaseWithLocalIoc" />
+    public class OrderService_Tests_2_With_DependencyInjection : TestBaseWithLocalIoc
     {
         [Fact]
         public void with_pure_dependency_injection()
@@ -31,7 +36,7 @@ namespace DependencyInjectionCourse.Tests
                 builder.Register(context => fakeDepdency2);
                 builder.Register(context => fakeCacheManager);
                 builder.RegisterType<OrderService>().As<IOrderService>();
-            }).Ok();
+            });
 
             var sut = Resolver.Resolve<IOrderService>();
 

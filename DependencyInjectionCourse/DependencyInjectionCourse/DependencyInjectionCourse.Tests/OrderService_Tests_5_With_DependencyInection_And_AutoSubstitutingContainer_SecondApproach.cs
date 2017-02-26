@@ -10,22 +10,20 @@ using Xunit;
 
 namespace DependencyInjectionCourse.Tests
 {
-    public class OrderService_Tests
+    /// <summary>
+    ///  Uses https://github.com/MRCollective/AutofacContrib.NSubstitute
+    /// </summary>
+    /// <seealso cref="DependencyInjectionCourse.Tests.TestBaseWithAutoSubstituteIoc" />
+    public class OrderService_Tests_5_With_DependencyInection_And_AutoSubstitutingContainer_SecondApproach : TestBaseWithAutoSubstituteIoc
     {
         [Fact]
-        public void without_dependency_injection()
+        public void with_dependency_injection_and_automocking_container()
         {
             //-----------------------------------------------------------------------------------------------------------
             // Arrange
             //-----------------------------------------------------------------------------------------------------------
-            var fakeCacheManager = Substitute.For<ICacheManager>();
-            var fakeDependency1 = Substitute.For<IDependency1>();
-            var fakeDependency2 = Substitute.For<IDependency2>();
-            fakeCacheManager.Get("1").Returns(new Basket(1, 50));
-
-            // Dependency1'in içindeki Logger'a test yazarken ihtiyaç duyulduğu anda tekrar bi New'leme yapılması gerek!
-            // Dependency sayıları arttıkça New sayısı veya object passing artar, okunurluk azalır.
-            var sut = new OrderService(fakeCacheManager, fakeDependency1, fakeDependency2);
+            AFake<ICacheManager>().Get("1").Returns(new Basket(1, 50));
+            IOrderService sut = Use<IOrderService, OrderService>();
 
             //-----------------------------------------------------------------------------------------------------------
             // Act
@@ -36,6 +34,8 @@ namespace DependencyInjectionCourse.Tests
             // Assert
             //-----------------------------------------------------------------------------------------------------------
             result.BasketId.Should().Be(1);
+            result.Total.Should().Be(50);
+            AFake<IDependency1>().Received().Salute();
         }
     }
 }
