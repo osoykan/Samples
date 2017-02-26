@@ -13,6 +13,7 @@ using Xunit;
 namespace DependencyInjectionCourse.Tests
 {
     /// <summary>
+    ///     This is another Container based approach!
     ///     Uses https://github.com/Erwinvandervalk/Chill
     /// </summary>
     public class OrderService_Tests_6_With_Chill : GivenSubject<OrderService, OrderResult>
