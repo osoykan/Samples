@@ -29,7 +29,7 @@ namespace DependencyInjectionCourse.Tests
 
             AFake<ICacheManager>().Get("1").Returns(new Basket(1, 50));
 
-            var sut = Use<IOrderService>();
+            var sut = The<IOrderService>();
 
             //-----------------------------------------------------------------------------------------------------------
             // Act

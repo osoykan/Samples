@@ -20,7 +20,7 @@ namespace DependencyInjectionCourse.Tests
             Resolver = Builder.Build();
         }
 
-        protected T Use<T>()
+        protected T The<T>()
         {
             return Resolver.Resolve<T>();
         }
