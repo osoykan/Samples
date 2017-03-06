@@ -30,7 +30,7 @@ namespace DependencyInjectionCourse.Tests
             return Resolver.Resolve<T>();
         }
 
-        protected T Use<T>()
+        protected T The<T>()
         {
             return Resolver.Resolve<T>();
         }

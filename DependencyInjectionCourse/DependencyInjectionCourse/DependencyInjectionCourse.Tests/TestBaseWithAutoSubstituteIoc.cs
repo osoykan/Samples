@@ -16,7 +16,7 @@ namespace DependencyInjectionCourse.Tests
             return AutoSubstitute.Resolve<T>();
         }
 
-        protected TService Use<TService, TImplementation>()
+        protected TService The<TService, TImplementation>()
         {
             return AutoSubstitute.Provide<TService, TImplementation>();
         }

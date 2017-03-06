@@ -23,7 +23,7 @@ namespace DependencyInjectionCourse.Tests
             // Arrange
             //-----------------------------------------------------------------------------------------------------------
             AFake<ICacheManager>().Get("1").Returns(new Basket(1, 50));
-            IOrderService sut = Use<IOrderService, OrderService>();
+            IOrderService sut = The<IOrderService, OrderService>();
 
             //-----------------------------------------------------------------------------------------------------------
             // Act
