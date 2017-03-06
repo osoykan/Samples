@@ -1,17 +1,18 @@
-﻿{
+{
   "version": "1.0.0-*",
   "buildOptions": {
     "emitEntryPoint": true
   },
 
   "dependencies": {
-    "Abp": "1.2.2",
-    "Abp.EntityFramework": "1.2.2",
-    "EntityFrameworkProfiler.Appender": "3.0.3105"
+    "Abp": "1.5.0",
+    "Abp.Dapper": "1.5.0",
+    "Abp.EntityFramework": "1.5.0",
+    "EntityFrameworkProfiler.Appender": "4.0.4038"
   },
 
   "frameworks": {
-    "net452": {
+    "net461": {
       
     } 
   }
