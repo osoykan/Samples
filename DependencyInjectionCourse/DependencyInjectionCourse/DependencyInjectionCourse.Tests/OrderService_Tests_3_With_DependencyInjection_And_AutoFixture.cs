@@ -5,9 +5,9 @@ using DependencyInjectionCourse.ExternalDependencies;
 using DependencyInjectionCourse.Order;
 using DependencyInjectionCourse.Tests.Conventions;
 
-using FluentAssertions;
+using FakeItEasy;
 
-using NSubstitute;
+using FluentAssertions;
 
 using Xunit;
 
@@ -32,7 +32,7 @@ namespace DependencyInjectionCourse.Tests
             //-----------------------------------------------------------------------------------------------------------
             Building(builder =>
             {
-                fakeCacheManager.Get("1").Returns(new Basket(1, 50));
+                A.CallTo(() => fakeCacheManager.Get("1")).Returns(new Basket(1, 50));
 
                 builder.Register(context => fakeDependency1);
                 builder.Register(context => fakeDependency2);
@@ -52,6 +52,7 @@ namespace DependencyInjectionCourse.Tests
             //-----------------------------------------------------------------------------------------------------------
             result.BasketId.Should().Be(1);
             result.Total.Should().Be(50);
+            A.CallTo(() => fakeDependency1.Salute()).MustHaveHappened();
         }
     }
 }

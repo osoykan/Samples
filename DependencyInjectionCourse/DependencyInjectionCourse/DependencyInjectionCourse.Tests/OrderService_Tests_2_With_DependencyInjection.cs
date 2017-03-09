@@ -4,9 +4,9 @@ using DependencyInjectionCourse.Cache;
 using DependencyInjectionCourse.ExternalDependencies;
 using DependencyInjectionCourse.Order;
 
-using FluentAssertions;
+using FakeItEasy;
 
-using NSubstitute;
+using FluentAssertions;
 
 using Xunit;
 
@@ -27,10 +27,10 @@ namespace DependencyInjectionCourse.Tests
             //-----------------------------------------------------------------------------------------------------------
             Building(builder =>
             {
-                var fakeDepdency1 = Substitute.For<IDependency1>();
-                var fakeDepdency2 = Substitute.For<IDependency2>();
-                var fakeCacheManager = Substitute.For<ICacheManager>();
-                fakeCacheManager.Get("1").Returns(new Basket(1, 50));
+                var fakeDepdency1 = A.Fake<IDependency1>();
+                var fakeDepdency2 = A.Fake<IDependency2>();
+                var fakeCacheManager = A.Fake<ICacheManager>();
+                A.CallTo(() => fakeCacheManager.Get("1")).Returns(new Basket(1, 50));
 
                 builder.Register(context => fakeDepdency1);
                 builder.Register(context => fakeDepdency2);
@@ -38,6 +38,7 @@ namespace DependencyInjectionCourse.Tests
                 builder.RegisterType<OrderService>().As<IOrderService>();
             });
 
+            // We get rid of the object creation which means object newing!
             var sut = The<IOrderService>();
 
             //-----------------------------------------------------------------------------------------------------------
@@ -50,6 +51,7 @@ namespace DependencyInjectionCourse.Tests
             //-----------------------------------------------------------------------------------------------------------
             result.BasketId.Should().Be(1);
             result.Total.Should().Be(50);
+            A.CallTo(() => The<IDependency1>().Salute()).MustHaveHappened();
         }
     }
 }
