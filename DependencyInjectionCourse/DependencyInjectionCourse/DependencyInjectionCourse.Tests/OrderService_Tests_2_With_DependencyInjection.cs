@@ -20,7 +20,7 @@ namespace DependencyInjectionCourse.Tests
     public class OrderService_Tests_2_With_DependencyInjection : TestBaseWithLocalIoc
     {
         [Fact]
-        public void with_pure_dependency_injection()
+        public void order_should_be_done_successfully()
         {
             //-----------------------------------------------------------------------------------------------------------
             // Arrange
@@ -38,12 +38,13 @@ namespace DependencyInjectionCourse.Tests
                 builder.RegisterType<OrderService>().As<IOrderService>();
             });
 
-            // We get rid of the object creation which means object newing!
-            var sut = The<IOrderService>();
-
             //-----------------------------------------------------------------------------------------------------------
             // Act
             //-----------------------------------------------------------------------------------------------------------
+
+            // We get rid of the object creation which means object newing!
+            var sut = The<IOrderService>();
+
             OrderResult result = sut.DoOrder(1);
 
             //-----------------------------------------------------------------------------------------------------------

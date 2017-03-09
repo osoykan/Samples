@@ -16,7 +16,7 @@ namespace DependencyInjectionCourse.Tests
     public class OrderService_Tests_1
     {
         [Fact]
-        public void without_dependency_injection()
+        public void order_should_be_done_successfully()
         {
             //-----------------------------------------------------------------------------------------------------------
             // Arrange
@@ -24,16 +24,14 @@ namespace DependencyInjectionCourse.Tests
             var fakeCacheManager = A.Fake<ICacheManager>();
             var fakeDependency1 = A.Fake<IDependency1>();
             var fakeDependency2 = A.Fake<IDependency2>();
-
             A.CallTo(() => fakeCacheManager.Get("1")).Returns(new Basket(1, 50));
-
-            // Dependency1'in içindeki Logger'a test yazarken ihtiyaç duyulduğu anda tekrar bi New'leme yapılması gerek!
-            // Dependency sayıları arttıkça New sayısı veya object passing artar, okunurluk azalır.
-            var sut = new OrderService(fakeCacheManager, fakeDependency1, fakeDependency2);
 
             //-----------------------------------------------------------------------------------------------------------
             // Act
             //-----------------------------------------------------------------------------------------------------------
+            // Dependency1'in içindeki Logger'a test yazarken ihtiyaç duyulduğu anda tekrar bi New'leme yapılması gerek!
+            // Dependency sayıları arttıkça New sayısı veya object passing artar, okunurluk azalır.
+            var sut = new OrderService(fakeCacheManager, fakeDependency1, fakeDependency2);
             OrderResult result = sut.DoOrder(1);
 
             //-----------------------------------------------------------------------------------------------------------

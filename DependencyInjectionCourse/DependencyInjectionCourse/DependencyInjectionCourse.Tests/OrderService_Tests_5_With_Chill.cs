@@ -1,6 +1,4 @@
-﻿using System.Runtime.InteropServices;
-
-using Chill;
+﻿using Chill;
 
 using DependencyInjectionCourse.Cache;
 using DependencyInjectionCourse.ExternalDependencies;
@@ -32,7 +30,7 @@ namespace DependencyInjectionCourse.Tests
         }
 
         [Fact]
-        public void with_chill_behaviour_driven_design_as_scoped_with_single_operation_responsibility()
+        public void order_should_be_done_successfully()
         {
             Result.BasketId.Should().Be(1);
             Result.Total.Should().Be(50);
