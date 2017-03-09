@@ -21,7 +21,7 @@ namespace DependencyInjectionCourse.Tests
     {
         [Theory]
         [AutoDataSubstitute]
-        public void with_pure_dependency_injection_autofixture(
+        public void order_should_be_done_successfully(
             IDependency1 fakeDependency1,
             IDependency2 fakeDependency2,
             ICacheManager fakeCacheManager
@@ -40,11 +40,11 @@ namespace DependencyInjectionCourse.Tests
                 builder.RegisterType<OrderService>().As<IOrderService>();
             });
 
-            var sut = The<IOrderService>();
-
             //-----------------------------------------------------------------------------------------------------------
             // Act
             //-----------------------------------------------------------------------------------------------------------
+            var sut = The<IOrderService>();
+
             OrderResult result = sut.DoOrder(1);
 
             //-----------------------------------------------------------------------------------------------------------

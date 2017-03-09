@@ -17,18 +17,17 @@ namespace DependencyInjectionCourse.Tests
     public class OrderService_Tests_4_With_DependencyInection_And_AutoSubstitutingContainer : TestBaseWithAutoFakingIoc
     {
         [Fact]
-        public void with_dependency_injection_and_automocking_container()
+        public void order_should_be_done_successfully()
         {
             //-----------------------------------------------------------------------------------------------------------
             // Arrange
             //-----------------------------------------------------------------------------------------------------------
             A.CallTo(() => Fake<ICacheManager>().Get("1")).Returns(new Basket(1, 50));
 
-            IOrderService sut = The<IOrderService, OrderService>();
-
             //-----------------------------------------------------------------------------------------------------------
             // Act
             //-----------------------------------------------------------------------------------------------------------
+            IOrderService sut = The<IOrderService, OrderService>();
             OrderResult result = sut.DoOrder(1);
 
             //-----------------------------------------------------------------------------------------------------------
