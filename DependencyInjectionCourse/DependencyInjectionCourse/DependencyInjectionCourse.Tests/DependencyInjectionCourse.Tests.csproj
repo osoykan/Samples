@@ -166,6 +166,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Chill\AutofacChillContainer.cs" />
+    <Compile Include="Chill\AutofacFakeItEasyMockingContainer.cs" />
+    <Compile Include="Chill\DefaultChillContainer.cs" />
+    <Compile Include="Chill\FakeRegistrationHandler.cs" />
     <Compile Include="Conventions\AutoSubstituteAttribute.cs" />
     <Compile Include="OrderService_Tests_4_With_DependencyInection_And_AutoSubstitutingContainer.cs" />
     <Compile Include="OrderService_Tests_5_With_Chill.cs" />

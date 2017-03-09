@@ -25,10 +25,6 @@ namespace DependencyInjectionCourse.Tests
             Given(() =>
             {
                 SetThe<Basket>().To(new Basket(1, 50));
-                UseThe(A.Fake<ICacheManager>());
-                UseThe(A.Fake<IDependency1>());
-                UseThe(A.Fake<IDependency2>());
-
                 A.CallTo(() => The<ICacheManager>().Get("1")).Returns(The<Basket>());
             });
 
