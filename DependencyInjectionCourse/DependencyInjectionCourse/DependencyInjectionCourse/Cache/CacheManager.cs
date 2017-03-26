@@ -1,7 +1,5 @@
 ﻿using System.Collections.Concurrent;
 
-using JetBrains.Annotations;
-
 namespace DependencyInjectionCourse.Cache
 {
     public class CacheManager : ICacheManager

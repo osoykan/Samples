@@ -13,6 +13,11 @@ namespace DependencyInjectionCourse.Tests
             FakeResolver = new AutoFake();
         }
 
+        public void Dispose()
+        {
+            FakeResolver?.Dispose();
+        }
+
         protected T Fake<T>()
         {
             return FakeResolver.Resolve<T>();
@@ -21,11 +26,6 @@ namespace DependencyInjectionCourse.Tests
         protected TService The<TService, TImplementation>()
         {
             return FakeResolver.Provide<TService, TImplementation>();
-        }
-
-        public void Dispose()
-        {
-            FakeResolver?.Dispose();
         }
     }
 }
