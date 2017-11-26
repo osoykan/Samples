@@ -5,9 +5,9 @@ using DependencyInjectionCourse.ExternalDependencies;
 using DependencyInjectionCourse.Order;
 using DependencyInjectionCourse.Tests.Conventions;
 
-using FluentAssertions;
+using FakeItEasy;
 
-using NSubstitute;
+using FluentAssertions;
 
 using Xunit;
 
@@ -21,7 +21,7 @@ namespace DependencyInjectionCourse.Tests
     {
         [Theory]
         [AutoDataSubstitute]
-        public void with_pure_dependency_injection_autofixture(
+        public void order_should_be_done_successfully(
             IDependency1 fakeDependency1,
             IDependency2 fakeDependency2,
             ICacheManager fakeCacheManager
@@ -32,7 +32,7 @@ namespace DependencyInjectionCourse.Tests
             //-----------------------------------------------------------------------------------------------------------
             Building(builder =>
             {
-                fakeCacheManager.Get("1").Returns(new Basket(1, 50));
+                A.CallTo(() => fakeCacheManager.Get("1")).Returns(new Basket(1, 50));
 
                 builder.Register(context => fakeDependency1);
                 builder.Register(context => fakeDependency2);
@@ -40,11 +40,11 @@ namespace DependencyInjectionCourse.Tests
                 builder.RegisterType<OrderService>().As<IOrderService>();
             });
 
-            var sut = The<IOrderService>();
-
             //-----------------------------------------------------------------------------------------------------------
             // Act
             //-----------------------------------------------------------------------------------------------------------
+            var sut = The<IOrderService>();
+
             OrderResult result = sut.DoOrder(1);
 
             //-----------------------------------------------------------------------------------------------------------
@@ -52,6 +52,7 @@ namespace DependencyInjectionCourse.Tests
             //-----------------------------------------------------------------------------------------------------------
             result.BasketId.Should().Be(1);
             result.Total.Should().Be(50);
+            A.CallTo(() => fakeDependency1.Salute()).MustHaveHappened();
         }
     }
 }

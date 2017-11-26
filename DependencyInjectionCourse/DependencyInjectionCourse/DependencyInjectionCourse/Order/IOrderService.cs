@@ -4,6 +4,7 @@ namespace DependencyInjectionCourse.Order
 {
     public interface IOrderService
     {
-        [NotNull] OrderResult DoOrder(int basketId);
+        [NotNull]
+        OrderResult DoOrder(int basketId);
     }
 }
