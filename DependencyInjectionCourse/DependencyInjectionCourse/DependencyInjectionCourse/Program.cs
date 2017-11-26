@@ -46,7 +46,6 @@ namespace DependencyInjectionCourse
 
             IContainer container = builder.Build();
 
-          
             var claims = Thread.CurrentPrincipal as ClaimsPrincipal;
             claims.AddIdentity(new ClaimsIdentity(new Claim[] { new Claim(ClaimTypes.Role, "User") }));
 
