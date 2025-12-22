@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: kotlin-reactive-session
+
+logging:
+  level:
+    root: INFO
+    com.example.reactive: DEBUG
+
